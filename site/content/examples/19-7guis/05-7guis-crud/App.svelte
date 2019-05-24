@@ -19,7 +19,7 @@
 	let prefix = '';
 	let first = '';
 	let last = '';
-	let i = 0;
+	let i = -1;
 
 	$: filteredPeople = prefix
 		? people.filter(person => {
@@ -30,7 +30,7 @@
 
 	$: selected = filteredPeople[i];
 
-	$: {
+	function personChanged() {
 		first = selected ? selected.first : '';
 		last = selected ? selected.last : '';
 	}
@@ -81,7 +81,7 @@
 
 <input placeholder="filter prefix" bind:value={prefix}>
 
-<select bind:value={i} size={5}>
+<select bind:value={i} size={5} on:change={personChanged}>
 	{#each filteredPeople as person, i}
 		<option value={i}>{person.last}, {person.first}</option>
 	{/each}
